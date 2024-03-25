@@ -1,19 +1,27 @@
 import React from "react";
-import katie from "./katie-zaferes.png";
 import star from "./star.png";
-function Card() {
+
+function Card(props) {
+  let badgeText;
+  if (props.item.openSpots === 0) {
+    badgeText = "SOLD OUT";
+  } else if (props.item.location === "Online") {
+    badgeText = "ONLINE";
+  }
+
   return (
     <div className="card">
-      <img src={katie} alt="" className="card--img"></img>
+      {badgeText && <div className="card--badge">{badgeText}</div>}
+      <img src={`../images/${props.item.coverImg}`} className="card--img" />
       <div className="rating">
         <img src={star} alt="" className="rating--star" />
-        <span>5.0</span>
-        <span className="gray">(6) • </span>
-        <span className="gray">USA</span>
+        <span>{props.item.rating}</span>
+        <span className="gray">({props.item.stats.reviewCount}) • </span>
+        <span className="gray">{props.item.location}</span>
       </div>
-      <p className="card--title">Life lessons from katie</p>
-      <p>
-        <span className="bold">From $136</span> / person
+      <p className="card--title">{props.item.title}</p>
+      <p className="card--price">
+        <span className="bold">From ${props.item.price}</span> / person
       </p>
 
       {/* <div className="card--2">
